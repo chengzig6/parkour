@@ -26,13 +26,21 @@ public class playerController : MonoBehaviour
     Vector3 moveIncrement;
     private void Update()
     {
+        if (runSpeedMax > runSpeed)
+        {
+            runSpeed += runSpeedDelta * Time.deltaTime;
+        }
+
         //计算角色在Z轴方向的移动
-        moveIncrement += transform.forward * runSpeed * Time.deltaTime;
+        moveIncrement = transform.forward * runSpeed * Time.deltaTime;
 
         moveIncrement.y = playerC0ntroller.isGrounded ? 0f : dropSpeed * Time.deltaTime;
 
 
         playerC0ntroller.Move(moveIncrement);
+        playerAnimator.SetFloat("MoveSpeed", playerC0ntroller.velocity.magnitude);
+
+
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -40,13 +48,7 @@ public class playerController : MonoBehaviour
         //构建直线
         if(hit.gameObject != currentRoad)
         {
-            if(runSpeedMax > runSpeed)
-            {
-                runSpeed += runSpeedDelta * Time.deltaTime;
-            }
-
-            playerAnimator.SetFloat("MoveSpeed", playerC0ntroller.velocity.magnitude);
-
+            
             currentRoad = hit.gameObject;
             Destroy(hit.gameObject, 1f);
             RoadManage.Instance.BuildGeneralRoad();
