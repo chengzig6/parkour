@@ -69,4 +69,101 @@ public class RoadManage : MonoBehaviour
         //更新道路引导对象的位置
         roadGuideTrans.position += roadGuideTrans.forward;
     }
+
+    /// <summary>
+    /// 构建上偏移道路
+    /// </summary>
+    public void BuildUpRoad()
+    {
+        Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+        //更新道路引导对象的位置
+        roadGuideTrans.position += roadGuideTrans.forward;
+        //向自身的Y轴方向移动0.2个单位
+        roadGuideTrans.position += roadGuideTrans.up * 0.2f;
+    }
+
+    public void BuildDownRoad()
+    {
+        Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+        //更新道路引导对象的位置
+        roadGuideTrans.position += roadGuideTrans.forward;
+        //向自身的Y轴方向移动0.2个单位
+        roadGuideTrans.position -= roadGuideTrans.up * 0.2f;
+    }
+
+    public void BuildLeftRoad()
+    {
+        Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+        //更新道路引导对象的位置
+        roadGuideTrans.position += roadGuideTrans.forward;
+        //向自身的Y轴方向移动0.2个单位
+        roadGuideTrans.position -= roadGuideTrans.right * 0.2f;
+    }
+
+    public void BuildRightRoad()
+    {
+        Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+        //更新道路引导对象的位置
+        roadGuideTrans.position += roadGuideTrans.forward;
+        //向自身的Y轴方向移动0.2个单位
+        roadGuideTrans.position -= roadGuideTrans.right * 0.2f;
+    }
+
+    bool isBuildDirectRoad;//
+    int directNumberCur = 0 ;//偏移道路路快数
+    int directNumberMax = 10;//偏移道路路快数
+    /// <summary>
+    /// 构建道路
+    /// </summary>
+    public void BuildRoad()
+    {
+        if(isBuildDirectRoad && directNumberCur > 0)
+        {
+            directNumberCur--;
+        }
+        else
+        {
+            int randomValue = Random.Range(0, 10);
+            if (0 == randomValue)
+            {
+                isBuildDirectRoad = true;
+                directNumberCur = directNumberMax;
+
+                //随机确定偏移的道路类型
+                int directRoadNumber = Random.Range(0, 4);
+                switch(directRoadNumber)
+                {
+                    case (int)DirectRoadType.Up:
+                        BuildUpRoad();
+                        break;
+                    case (int)DirectRoadType.Down:
+                        BuildDownRoad();
+                        break;
+                    case (int)DirectRoadType.Left:
+                        BuildLeftRoad();
+                        break;
+                    case (int)DirectRoadType.Right:
+                        BuildDownRoad();
+                        break;
+                }
+                directNumberCur--;
+            }
+            else
+            {
+                BuildGeneralRoad();
+            }
+        }
+
+
+       
+
+    }
+}
+
+public enum DirectRoadType
+{
+    Up,
+    Down,
+    Left,
+    Right,
 }
