@@ -16,8 +16,6 @@ public class player : MonoBehaviour
     void Update()
     {
         float x = Input.GetAxis("Horizontal");
-        transform.Translate(x * trunSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
-
-        
+        transform.Translate(x * trunSpeed * Time.deltaTime, 0, speed * Time.deltaTime); 
     }
 }

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
     <Compile Include="Assets\StarNestSkybox\Scripts\CameraScroll.cs" />
+    <Compile Include="Assets\_script\playerController.cs" />
     <Compile Include="Assets\player.cs" />
     <Compile Include="Assets\Barrier.cs" />
     <Compile Include="Assets\UnityChan\Scripts\IdleChanger.cs" />
@@ -63,21 +64,25 @@
     <Compile Include="Assets\StarNestSkybox\Scripts\SkyboxSwitcher.cs" />
     <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />
     <Compile Include="Assets\UnityChan\Scripts\SceneLoader.cs" />
-    <Compile Include="Assets\_script\playerShow.cs" />
     <Compile Include="Assets\_script\RoadManage.cs" />
     <Compile Include="Assets\Simple UI\Samples\IconPreview.cs" />
-    <Compile Include="Assets\_script\playerController.cs" />
+    <Compile Include="Assets\_script\playerShow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\StarNestSkybox\StarNestSkybox.shader" />
+    <None Include="Assets\DOTween_1_1_710\DOTween\DOTween46.dll" />
     <None Include="Assets\StarNestSkybox\StarNestSkyboxReadme.txt" />
     <None Include="Assets\StarNestSkybox\hsv.cginc" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_akarami_blend.shader" />
+    <None Include="Assets\DOTween_1_1_710\DOTween\readme.txt" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada.shader" />
+    <None Include="Assets\DOTween_1_1_710\DOTween\DOTween.dll" />
+    <None Include="Assets\DOTween_1_1_710\DOTween\DOTween43.dll" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku_ds.shader" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eyelash_blend.shader" />
+    <None Include="Assets\DOTween_1_1_710\DOTween\DOTween46.xml" />
     <None Include="Assets\StarNestSkybox\StarNestSkybox_HSV.shader" />
     <None Include="Assets\UnityChan\license.txt" />
     <None Include="Assets\Scene\TessellationShaders\Shaders\BumpedSpecularSmooth.shader" />
@@ -86,8 +91,12 @@
     <None Include="Assets\Simple UI\Fonts\OFL.txt" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
     <None Include="Assets\StarNestSkybox\StarNest.shader" />
+    <None Include="Assets\DOTween_1_1_710\DOTween\DOTween50.xml" />
     <None Include="Assets\StarNestSkybox\StarNestSkyboxMask.shader" />
     <None Include="Assets\UnityChan\Stage\Shader\AlphaMask.shader" />
+    <None Include="Assets\DOTween_1_1_710\DOTween\DOTween43.xml" />
+    <None Include="Assets\DOTween_1_1_710\DOTween\DOTween50.dll" />
+    <None Include="Assets\DOTween_1_1_710\DOTween\DOTween.XML" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair.shader" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye_blend.shader" />
   </ItemGroup>
@@ -319,6 +328,18 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\DOTween_1_1_710\DOTween\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>Assets\DOTween_1_1_710\DOTween\DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>Assets\DOTween_1_1_710\DOTween\DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>Assets\DOTween_1_1_710\DOTween\DOTween50.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.16f1c1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

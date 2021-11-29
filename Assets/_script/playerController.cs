@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// 说明 角色控制类
@@ -20,7 +21,8 @@ public class playerController : MonoBehaviour
     float runSpeedDelta = 0.2f;//没秒增加
     float dropSpeed = -1f;//下落
     float runSpeedMax = 8f;//最大速度
-    
+    float transervseSpeed = 2f;
+
     float jumpPower = 5f;
 
     bool bJumpState = false;
@@ -48,19 +50,33 @@ public class playerController : MonoBehaviour
             moveIncrement.y = playerC0ntroller.isGrounded ? 0f : dropSpeed * Time.deltaTime;
         }
 
+        float moveDir = Input.GetAxis("Horizontal");
+        moveIncrement += transform.right * moveDir * transervseSpeed * Time.deltaTime;
+
+
         playerC0ntroller.Move(moveIncrement);
         playerAnimator.SetFloat("MoveSpeed", playerC0ntroller.velocity.magnitude);
 
         //
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             bJumpState = true;
             playerAnimator.SetBool("isJump", true);
         }
-        else if(Input.GetKeyDown(KeyCode.S))
+        else if(Input.GetKeyDown(KeyCode.K))
         {
             playerAnimator.SetBool("isSlide", true);
         }
+        else if (Input.GetKeyDown(KeyCode.J)&& isTrunLeftEnd)
+        {
+            TurnLeftStart();
+        }
+        else if (Input.GetKeyDown(KeyCode.L) && isTrunRightEnd)
+        {
+            TurnRightStart();
+        }
+
+        
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -70,7 +86,7 @@ public class playerController : MonoBehaviour
         {
             
             currentRoad = hit.gameObject;
-            Destroy(hit.gameObject, 1f);
+            Destroy(hit.gameObject.transform.parent.gameObject, 1f);
             RoadManage.Instance.BuildRoad();
         }
        
@@ -86,5 +102,49 @@ public class playerController : MonoBehaviour
     {
         //bSlideState = false;
         playerAnimator.SetBool("isSlide", false);
+    }
+
+
+    // 是否左转向结束
+    bool isTrunLeftEnd = true;
+
+    bool isTrunRightEnd = true;
+    /// <summary>
+    /// 左转向
+    /// </summary>
+    void TurnLeftStart()
+    {
+        isTrunLeftEnd = false;
+
+        transform.Rotate(Vector3.up, -90f);
+        Quaternion endValue = transform.rotation;
+
+        //恢复朝向
+        transform.Rotate(Vector3.up, 90f);
+        Tween tween = transform.DORotateQuaternion(endValue,0.3f);
+        tween.OnComplete(TurnLeftEnd);
+    }
+
+    void TurnLeftEnd()
+    {
+        isTrunLeftEnd = true;
+    }
+
+    void TurnRightStart()
+    {
+        isTrunRightEnd = false;
+
+        transform.Rotate(Vector3.up, 90f);
+        Quaternion endValue = transform.rotation;
+
+        //恢复朝向
+        transform.Rotate(Vector3.up, -90f);
+        Tween tween = transform.DORotateQuaternion(endValue, 0.3f);
+        tween.OnComplete(TurnRightEnd);
+    }
+
+    void TurnRightEnd()
+    {
+        isTrunRightEnd = true;
     }
 }
