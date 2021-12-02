@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+public enum TouchDir
+{
+    None = 0,
+    Left = 1,
+    Right,
+    Up,
+    Down
+}
+
 /// <summary>
 /// 说明 角色控制类
 /// </summary>
@@ -67,16 +76,25 @@ public class playerController : MonoBehaviour
         {
             playerAnimator.SetBool("isSlide", true);
         }
-        else if (Input.GetKeyDown(KeyCode.J)&& isTrunLeftEnd)
+
+#if UNITY_EDITOR
+        bool startTurnLeft = Input.GetKeyDown(KeyCode.J);
+        bool startTurnRight = Input.GetKeyDown(KeyCode.L);
+#elif UNITY_ANDROID
+        bool startTurnLeft = TouchuMove() == TouchDir.Left;
+        bool startTurnRight = TouchuMove() == TouchDir.Right;
+#endif
+
+        // 进行左转右转
+        if (startTurnLeft && isTrunLeftEnd && isTrunRightEnd)
         {
             TurnLeftStart();
         }
-        else if (Input.GetKeyDown(KeyCode.L) && isTrunRightEnd)
+        else if (startTurnRight && isTrunLeftEnd && isTrunRightEnd)
         {
             TurnRightStart();
         }
 
-        
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -147,4 +165,58 @@ public class playerController : MonoBehaviour
     {
         isTrunRightEnd = true;
     }
+
+    // 检测滑动 
+    TouchDir CheckTouchDir(Vector2 beginPointPosition)
+    {
+        if(Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            Vector2 endPos = Input.GetTouch(0).position;
+            Vector2 offset = endPos - beginPointPosition;
+
+            if(Mathf.Abs(offset.x) > Mathf.Abs(offset.y) && Mathf.Abs(offset.x) > 50f)
+            {
+                if(offset.x > 0)
+                {
+                    return TouchDir.Right;
+                }
+                else
+                {
+                    return TouchDir.Left;
+                }
+            }
+            if (Mathf.Abs(offset.y) > Mathf.Abs(offset.x) && Mathf.Abs(offset.y) > 50f)
+            {
+                if (offset.y > 0)
+                {
+                    return TouchDir.Up;
+                }
+                else
+                {
+                    return TouchDir.Down;
+                }
+            }
+
+            return TouchDir.None;
+        }
+        return TouchDir.None;
+    }
+
+    TouchDir TouchuMove()
+    {
+        Vector2 begpos = Vector2.zero;
+        if (Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            begpos = Input.GetTouch(0).position;
+        }
+
+        if(Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            return CheckTouchDir(begpos);
+        }
+
+
+        return TouchDir.None;
+    }
 }
+

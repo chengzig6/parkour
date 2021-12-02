@@ -5,7 +5,8 @@ using UnityEngine;
 public enum RoadType
 {
     Direct = 1,
-    Swerve
+    Swerve,
+    Trap,
 }
 
 public enum DirectRoadType
@@ -21,6 +22,14 @@ public enum SwerveRoadType
     TurnLeft = 1,
     TurnRight,
 }
+
+public enum TrapRoadType
+{
+    Left = 1,
+    Center,
+    Right
+}
+
 public class RoadManage : MonoBehaviour
 {
     static RoadManage _instance;
@@ -206,8 +215,10 @@ public class RoadManage : MonoBehaviour
                         break;
                 }
             }
-
-
+            else if(randomValue == (int)(RoadType.Trap))
+            {
+                BuildTrapRoad();
+            }
             else
             {
                 BuildGeneralRoad();
@@ -243,6 +254,29 @@ public class RoadManage : MonoBehaviour
 
         roadGuideTrans.position -= roadGuideTrans.forward * 2f;
         roadGuideTrans.Rotate(Vector3.up, 90f);
+        roadGuideTrans.position += roadGuideTrans.forward * 2f;
+    }
+    //ÏÝÚåµÀÂ·
+    public void BuildTrapRoad()
+    {
+        roadGuideTrans.position += roadGuideTrans.forward;
+
+        GameObject tempRoad = Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+        tempRoad.transform.Rotate(Vector3.up, 90f);
+
+        int randomValue = Random.Range(1, 4);
+        switch (randomValue)
+        {
+            case (int)TrapRoadType.Left:
+                tempRoad.transform.position -= tempRoad.transform.forward;
+                break;
+            case (int)TrapRoadType.Center:
+                break;
+            case (int)TrapRoadType.Right:
+                tempRoad.transform.position += tempRoad.transform.forward;
+                break;
+        }
+
         roadGuideTrans.position += roadGuideTrans.forward * 2f;
     }
 
