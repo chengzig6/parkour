@@ -67,6 +67,9 @@
     <Compile Include="Assets\_script\RoadManage.cs" />
     <Compile Include="Assets\Simple UI\Samples\IconPreview.cs" />
     <Compile Include="Assets\_script\playerShow.cs" />
+    <Compile Include="Assets\_script\RoadTemplate.cs" />
+    <Compile Include="Assets\_script\SubRoadBack.cs" />
+    <Compile Include="Assets\_script\GoldCollision.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
@@ -326,17 +329,17 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.16f1c1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>Assets\DOTween_1_1_710\DOTween\DOTween.dll</HintPath>
-    </Reference>
     <Reference Include="DOTween46">
       <HintPath>Assets\DOTween_1_1_710\DOTween\DOTween46.dll</HintPath>
     </Reference>
     <Reference Include="DOTween43">
       <HintPath>Assets\DOTween_1_1_710\DOTween\DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\DOTween_1_1_710\DOTween\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="DOTween50">
       <HintPath>Assets\DOTween_1_1_710\DOTween\DOTween50.dll</HintPath>

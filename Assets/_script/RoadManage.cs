@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum RoadType
 {
@@ -53,6 +54,9 @@ public class RoadManage : MonoBehaviour
     /// </summary>
     GameObject roadGuideObj;
 
+
+    List<GameObject> roadList = new List<GameObject>();
+
     //相邻转向道路之间的最小间隔
     int trunRoadLimit;
 
@@ -62,6 +66,16 @@ public class RoadManage : MonoBehaviour
     int directNumberCur = 0;//偏移道路路快数
     int directNumberMax = 10;//偏移道路路快数
     int directCurType;
+    int goldNumber = 0;
+
+    public Text goldNumberText;
+    public Text scoreNumberText;
+
+    public int GoldNumber
+    {
+        set { goldNumber = value; }
+        get { return goldNumber; }
+    }
 
     public static RoadManage Instance
     { 
@@ -99,9 +113,11 @@ public class RoadManage : MonoBehaviour
     /// </summary>
     public void BuildGeneralRoad()
     {
-        Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation,transform);
+        GameObject obj = Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation,transform);
         //更新道路引导对象的位置
         roadGuideTrans.position += roadGuideTrans.forward;
+        //路块解体
+        ShowSubRoadBlockBreakupEffect(obj);
     }
 
     /// <summary>
@@ -109,38 +125,46 @@ public class RoadManage : MonoBehaviour
     /// </summary>
     public void BuildUpRoad()
     {
-        Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+        GameObject obj = Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
         //更新道路引导对象的位置
         roadGuideTrans.position += roadGuideTrans.forward;
         //向自身的Y轴方向移动0.2个单位
         roadGuideTrans.position += roadGuideTrans.up * 0.2f;
+        //路块解体
+        ShowSubRoadBlockBreakupEffect(obj);
     }
 
     public void BuildDownRoad()
     {
-        Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+        GameObject obj = Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
         //更新道路引导对象的位置
         roadGuideTrans.position += roadGuideTrans.forward;
         //向自身的Y轴方向移动0.2个单位
         roadGuideTrans.position -= roadGuideTrans.up * 0.2f;
+        //路块解体
+        ShowSubRoadBlockBreakupEffect(obj);
     }
 
     public void BuildLeftRoad()
     {
-        Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+        GameObject obj = Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
         //更新道路引导对象的位置
         roadGuideTrans.position += roadGuideTrans.forward;
         //向自身的Y轴方向移动0.2个单位
         roadGuideTrans.position -= roadGuideTrans.right * 0.2f;
+        //路块解体
+        ShowSubRoadBlockBreakupEffect(obj);
     }
 
     public void BuildRightRoad()
     {
-        Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+        GameObject obj = Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
         //更新道路引导对象的位置
         roadGuideTrans.position += roadGuideTrans.forward;
         //向自身的Y轴方向移动0.2个单位
         roadGuideTrans.position -= roadGuideTrans.right * 0.2f;
+        //路块解体
+        ShowSubRoadBlockBreakupEffect(obj);
     }
 
     /// <summary>
@@ -232,9 +256,11 @@ public class RoadManage : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+            GameObject obj = Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
             //更新道路引导对象的位置
             roadGuideTrans.position += roadGuideTrans.forward;
+            //路块解体
+            ShowSubRoadBlockBreakupEffect(obj);
         }
 
         roadGuideTrans.position -= roadGuideTrans.forward * 2f;
@@ -247,9 +273,11 @@ public class RoadManage : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
+            GameObject obj = Instantiate(roadTemplatePrefab, roadGuideTrans.position, roadGuideTrans.rotation);
             //更新道路引导对象的位置
             roadGuideTrans.position += roadGuideTrans.forward;
+            //路块解体
+            ShowSubRoadBlockBreakupEffect(obj);
         }
 
         roadGuideTrans.position -= roadGuideTrans.forward * 2f;
@@ -278,7 +306,44 @@ public class RoadManage : MonoBehaviour
         }
 
         roadGuideTrans.position += roadGuideTrans.forward * 2f;
+        //路块解体
+        ShowSubRoadBlockBreakupEffect(tempRoad);
     }
 
+    /// <summary>
+    /// 路块解体
+    /// </summary>
+    /// <param name="parentRoad"></param>
+    public void ShowSubRoadBlockBreakupEffect(GameObject parentRoad)
+    {
 
+        RoadTemplate tempRoad = parentRoad.GetComponent<RoadTemplate>();
+        if (tempRoad)
+        {
+            tempRoad.setSubRoadBreakupEffect();
+        }
+
+
+        roadList.Add(parentRoad);
+
+
+    }
+
+    /// <summary>
+    /// 路块组合
+    /// </summary>
+    public void ShowSubRoadBlockCombinationEffect()
+    {
+        RoadTemplate tmp = roadList[0].GetComponent<RoadTemplate>();
+        if (tmp)
+        {
+            tmp.setSubRoadCombinationEffect();
+        }
+        roadList.RemoveAt(0);
+    }
+
+    private void Update()
+    {
+        goldNumberText.text = goldNumber.ToString();
+    }
 }

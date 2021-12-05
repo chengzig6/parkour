@@ -106,6 +106,8 @@ public class playerController : MonoBehaviour
             currentRoad = hit.gameObject;
             Destroy(hit.gameObject.transform.parent.gameObject, 1f);
             RoadManage.Instance.BuildRoad();
+            RoadManage.Instance.ShowSubRoadBlockCombinationEffect();
+
         }
        
     }
