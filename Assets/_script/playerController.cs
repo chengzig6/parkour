@@ -77,12 +77,14 @@ public class playerController : MonoBehaviour
             playerAnimator.SetBool("isSlide", true);
         }
 
-#if UNITY_EDITOR
         bool startTurnLeft = Input.GetKeyDown(KeyCode.J);
         bool startTurnRight = Input.GetKeyDown(KeyCode.L);
+#if UNITY_EDITOR
+        startTurnLeft = Input.GetKeyDown(KeyCode.J);
+        startTurnRight = Input.GetKeyDown(KeyCode.L);
 #elif UNITY_ANDROID
-        bool startTurnLeft = TouchuMove() == TouchDir.Left;
-        bool startTurnRight = TouchuMove() == TouchDir.Right;
+        startTurnLeft = TouchuMove() == TouchDir.Left;
+        startTurnRight = TouchuMove() == TouchDir.Right;
 #endif
 
         // 进行左转右转

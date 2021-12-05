@@ -54,10 +54,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
+    <Compile Include="Assets\_script\GoldCollision.cs" />
     <Compile Include="Assets\StarNestSkybox\Scripts\CameraScroll.cs" />
     <Compile Include="Assets\_script\playerController.cs" />
+    <Compile Include="Assets\_script\SubRoadBack.cs" />
     <Compile Include="Assets\player.cs" />
     <Compile Include="Assets\Barrier.cs" />
+    <Compile Include="Assets\_script\RoadTemplate.cs" />
     <Compile Include="Assets\UnityChan\Scripts\IdleChanger.cs" />
     <Compile Include="Assets\UnityChan\Scripts\ThirdPersonCamera.cs" />
     <Compile Include="Assets\UnityChan\Scripts\UnityChanControlScriptWithRgidBody.cs" />
@@ -67,9 +70,6 @@
     <Compile Include="Assets\_script\RoadManage.cs" />
     <Compile Include="Assets\Simple UI\Samples\IconPreview.cs" />
     <Compile Include="Assets\_script\playerShow.cs" />
-    <Compile Include="Assets\_script\RoadTemplate.cs" />
-    <Compile Include="Assets\_script\SubRoadBack.cs" />
-    <Compile Include="Assets\_script\GoldCollision.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
